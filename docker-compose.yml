@@ -1,22 +1,21 @@
-version: '3'
+version: '3'          # docker-compose.ymlのバージョン
 services:
-  web:
-    build: .
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  web:                # railsのコンテナの定義(サービス名)
+    build: .          # Dockerfileを元にイメージの作成
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'       # コンテナを起動したときにデフォルトで実行される
     volumes:
-      - .:/app
+      - .:/app        # このディレクトリ内のファイルをコンテナ内の/appにも共有される
     ports:
-      - 3000:3000
+      - 3000:3000     # これがないとコンテナ内の環境をPCから見ることができない <公開するポート番号>:<コンテナ内部の転送先ポート番号>
     depends_on:
-      - db
-    tty: true
-    stdin_open: true
-  db:
+      - db            # railsのコンテナ(web)より先にMySQLサーバコンテナ(db)が先に起動する
+    tty: true         # pryを使ってデバッグするのに必要
+    stdin_open: true  # pryを使ってデバッグするのに必要
+  db:                 # MySQLサーバコンテナの定義(サービス名)
     image: mysql:5.7
     volumes:
-      - db-volume:/var/lib/mysql
-    environment:
+      - db-volume:/var/lib/mysql        # PC上のデータ領域からデータ持ってくる
+    environment:                        # コンテナ内で設定する環境変数
       MYSQL_ROOT_PASSWORD: password
 volumes:
-  db-volume:
-
+  db-volume:          # PC上の領域にDBのデータを保存しておく．コンテナ消してもデータ残る
