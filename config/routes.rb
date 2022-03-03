@@ -2,5 +2,5 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'boards' => 'boards#index'
   get 'boards/new' => 'boards#new'
-  post 'board' => 'boards#create'
+  post 'boards' => 'boards#create'
 end
