@@ -3,7 +3,7 @@ class BoardsController < ApplicationController
   end
 
   def new
-    @boards = Board.new
+    @board = Board.new
   end
 
   def create
