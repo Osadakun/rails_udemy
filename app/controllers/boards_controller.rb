@@ -22,7 +22,7 @@ class BoardsController < ApplicationController
 
   def update
     board = Board.find(params[:id])
-    board.updated(board_params)
+    board.update(board_params)
     redirect_to board
   end
 
