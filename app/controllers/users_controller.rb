@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if user.save
       session[:user_id] = user.id
       redirect_to mypage_path
-    else
+    else_
       redirect_to :back, flash: {
         user: user,
         error_message: user.errors.full_messages
